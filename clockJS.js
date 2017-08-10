@@ -2,6 +2,10 @@ var CYRCLE_CENTER_X = 75;
 var CYRCLE_CENTER_Y = 75;
 var CYRCLE_RADIUS = 50;
 
+var d = new Date();
+console.log(d.getHours());
+console.log(d.getMinutes());
+
 document.addEventListener("DOMContentLoaded", function() {
 	var canvas = document.getElementById('clockJS-canvas');
 	if (canvas.getContext) {
