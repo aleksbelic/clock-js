@@ -1,7 +1,7 @@
 var CYRCLE_CENTER_X = 75;
 var CYRCLE_CENTER_Y = 75;
 var CYRCLE_RADIUS = 50;
-var hourHandLengthProcent = 80;
+var hourHandLengthProcent = 100;
 var hourHandLength = CYRCLE_RADIUS * hourHandLengthProcent / 100;
 var hourHandX;
 var hourHandXLength;
@@ -9,8 +9,10 @@ var hourHandY;
 var hourHandYLength;
 
 var d = new Date();
-//console.log(d.getHours());
-//console.log(d.getMinutes());
+var hour = d.getHours();
+//console.log("hour: " + hour);
+var min = d.getMinutes();
+console.log("min: " + min);
 
 function getHourHandYLength(hourHandXLength) {
 	return Math.sqrt(hourHandLength * hourHandLength - hourHandXLength * hourHandXLength);
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		ctx.stroke();
 		
 		// hour hand
+		/*
 		ctx.beginPath();
 		ctx.strokeStyle = 'red';
 		ctx.lineWidth= '2';
@@ -39,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		ctx.lineTo(hourHandX, hourHandY);
 		ctx.stroke();
 		
-		console.log("hourHandLength: " + hourHandLength);
-		console.log("hourHandX: " + hourHandX);
-		console.log("hourHandY: " + hourHandY);
+		//console.log("hourHandLength: " + hourHandLength);
+		//console.log("hourHandX: " + hourHandX);
+		//console.log("hourHandY: " + hourHandY);
 		
 		// minute hand
 		ctx.beginPath();
@@ -50,8 +53,24 @@ document.addEventListener("DOMContentLoaded", function() {
 		ctx.moveTo(CYRCLE_CENTER_X, CYRCLE_CENTER_Y);
 		ctx.lineTo(CYRCLE_CENTER_X, CYRCLE_CENTER_Y + CYRCLE_RADIUS);
 		ctx.stroke();
+		*/
 		
-		testHand = new Hand(0, 0, 150, 150);
+		min = 59;
+		proc = min * 100 / 60;
+		console.log("proc: " + proc);
+		angle = proc * 360 / 100;
+		console.log("angle: " + angle);
+		hourHandXLength = hourHandLength * Math.sin(Math.PI * angle / 180);
+		console.log(hourHandLength * Math.sin(Math.PI * angle / 180));
+		hourHandYLength = hourHandLength * Math.cos(Math.PI * angle / 180);
+		console.log(hourHandLength * Math.cos(Math.PI * angle / 180));
+		
+		testHand = new Hand(
+			CYRCLE_CENTER_X, 
+			CYRCLE_CENTER_Y, 
+			CYRCLE_CENTER_X + hourHandXLength, 
+			CYRCLE_CENTER_Y - hourHandYLength
+		);
 		testHand.draw(ctx);
 	}
 });
