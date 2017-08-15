@@ -98,7 +98,7 @@ function redraw(context) {
 	
 	hourHand = new Hand(hourHandLength, hourHandWidth, hourHandColor);
 	hour = new Date().getHours();
-	hourAngle = (hour * 60 + min) / 10; // ((hour * 60 + min) * 100 / 3600) * 360 / 100;
+	hourAngle = (hour * 60 + min) * 0.25; // ((hour * 60 + min) * 100 / 1440) * 360 / 100;
 	
 	context.clearRect(0, 0, canvasSize, canvasSize); // clear canvas
 	
