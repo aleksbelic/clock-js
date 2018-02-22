@@ -1,43 +1,43 @@
 // canvas
-var canvasSize = 300;
-var canvasBorder = '1px solid #d3d3d3';
+let canvasSize = 300;
+let canvasBorder = '1px solid #d3d3d3';
 
 // clock face
-var circleRadius = 140;
-var circleCenterX = canvasSize / 2;
-var circleCenterY = canvasSize / 2;
-var circleBorderColor = '#000000';
-var circleBorderWidth = 1;
-var dotSize = 1; // px
-var dotDistancePercent = 90;
-var dotColor = '#000000';
+let circleRadius = 140;
+let circleCenterX = canvasSize / 2;
+let circleCenterY = canvasSize / 2;
+let circleBorderColor = '#000000';
+let circleBorderWidth = 1;
+let dotSize = 1; // px
+let dotDistancePercent = 90;
+let dotColor = '#000000';
 
 // clock hands
-var hourHandLengthPercent = 60;
-var hourHandLength = circleRadius * hourHandLengthPercent / 100;
-var hourHandWidth = 2;
-var hourHandColor = 'blue';
-var minHandLengthPercent = 80;
-var minHandLength = circleRadius * minHandLengthPercent / 100;
-var minHandWidth = 2;
-var minHandColor = 'red';
-var secHandLengthPercent = 80;
-var secHandLength = circleRadius * secHandLengthPercent / 100;
-var secHandWidth = 2;
-var secHandColor = 'green';
+let hourHandLengthPercent = 60;
+let hourHandLength = circleRadius * hourHandLengthPercent / 100;
+let hourHandWidth = 2;
+let hourHandColor = 'blue';
+let minHandLengthPercent = 80;
+let minHandLength = circleRadius * minHandLengthPercent / 100;
+let minHandWidth = 2;
+let minHandColor = 'red';
+let secHandLengthPercent = 80;
+let secHandLength = circleRadius * secHandLengthPercent / 100;
+let secHandWidth = 2;
+let secHandColor = 'green';
 
-var hour = new Date().getHours();
-var min = new Date().getMinutes();
-var sec = new Date().getSeconds();
+let hour = new Date().getHours();
+let min = new Date().getMinutes();
+let sec = new Date().getSeconds();
 
 document.addEventListener('DOMContentLoaded', function() {
-	var canvas = document.getElementById('clockJS-canvas');
+	let canvas = document.getElementById('clockJS-canvas');
 	canvas.setAttribute('width', canvasSize);
 	canvas.setAttribute('height', canvasSize);
 	canvas.style.border = canvasBorder;
 	
 	if (canvas.getContext) {
-		var ctx = canvas.getContext('2d');
+		let ctx = canvas.getContext('2d');
 		redraw(ctx);
 		setInterval(function(){
 			redraw(ctx);
@@ -53,8 +53,8 @@ class Hand {
 	}
 	
 	draw(context, angle){
-		var handXLength = this.length * Math.sin(Math.PI * angle / 180);
-		var handYLength = this.length * Math.cos(Math.PI * angle / 180);
+		let handXLength = this.length * Math.sin(Math.PI * angle / 180);
+		let handYLength = this.length * Math.cos(Math.PI * angle / 180);
 		context.beginPath();
 		context.strokeStyle = this.color;
 		context.lineWidth = this.width;
@@ -74,10 +74,10 @@ function drawCircle(context) {
 }
 
 function drawDots(context) {
-	var dotCenterX = 0;
-	var dotCenterY = 0;
+	let dotCenterX = 0;
+	let dotCenterY = 0;
 	context.fillStyle = dotColor;
-	for (var angle = 0; angle < 360; angle += 6) {
+	for (let angle = 0; angle < 360; angle += 6) {
 		context.beginPath();
 		dotCenterX = circleCenterX + (circleRadius * dotDistancePercent / 100 * Math.sin(Math.PI * angle / 180));
 		dotCenterY = circleCenterY - (circleRadius * dotDistancePercent / 100 * Math.cos(Math.PI * angle / 180));
