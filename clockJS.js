@@ -6,11 +6,11 @@ let canvasBorder = '1px solid #d3d3d3';
 let circleRadius = 140;
 let circleCenterX = canvasSize / 2;
 let circleCenterY = canvasSize / 2;
-let circleBorderColor = '#000000';
+let circleBorderColor = 'black';
 let circleBorderWidth = 1;
 let dotSize = 1; // px
 let dotDistancePercent = 90;
-let dotColor = '#000000';
+let dotColor = 'black';
 
 // clock hands
 let hourHandLengthPercent = 60;
@@ -31,15 +31,18 @@ let min = new Date().getMinutes();
 let sec = new Date().getSeconds();
 
 document.addEventListener('DOMContentLoaded', function() {
-	let canvas = document.getElementById('clockJS-canvas');
-	canvas.setAttribute('width', canvasSize);
-	canvas.setAttribute('height', canvasSize);
+	let canvas = document.createElement('canvas');
+	canvas.id = 'clockJS-canvas';
+	canvas.width = canvasSize;
+	canvas.height = canvasSize;
 	canvas.style.border = canvasBorder;
+
+	document.body.appendChild(canvas);
 	
 	if (canvas.getContext) {
 		let ctx = canvas.getContext('2d');
 		redraw(ctx);
-		setInterval(function(){
+		setInterval(function() {
 			redraw(ctx);
 		}, 1000);
 	}
@@ -52,7 +55,7 @@ class Hand {
 		this.color = color;
 	}
 	
-	draw(context, angle){
+	draw(context, angle) {
 		let handXLength = this.length * Math.sin(Math.PI * angle / 180);
 		let handYLength = this.length * Math.cos(Math.PI * angle / 180);
 		context.beginPath();
