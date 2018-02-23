@@ -1,30 +1,30 @@
 // canvas
-let canvasSize = 300;
-let canvasBorder = '1px solid #d3d3d3';
+const CANVAS_SIZE = 300;
+const CANVAS_BORDER = '1px solid #d3d3d3';
 
 // clock face
-let circleRadius = 140;
-let circleCenterX = canvasSize / 2;
-let circleCenterY = canvasSize / 2;
-let circleBorderColor = 'black';
-let circleBorderWidth = 1;
-let dotSize = 1; // px
-let dotDistancePercent = 90;
-let dotColor = 'black';
+const CIRCLE_RADIUS = 140;
+const CIRCLE_CENTER_X = CANVAS_SIZE / 2;
+const CIRCLE_CENTER_Y = CANVAS_SIZE / 2;
+const CIRCLE_BORDER_COLOR = 'black';
+const CIRCLE_BORDER_WIDTH = 1;
+const DOT_SIZE = 1;
+const DOT_DISTANCE_PERC = 90;
+const DOT_COLOR = 'black';
 
 // clock hands
-let hourHandLengthPercent = 60;
-let hourHandLength = circleRadius * hourHandLengthPercent / 100;
-let hourHandWidth = 2;
-let hourHandColor = 'blue';
-let minHandLengthPercent = 80;
-let minHandLength = circleRadius * minHandLengthPercent / 100;
-let minHandWidth = 2;
-let minHandColor = 'red';
-let secHandLengthPercent = 80;
-let secHandLength = circleRadius * secHandLengthPercent / 100;
-let secHandWidth = 2;
-let secHandColor = 'green';
+const HOUR_HAND_LENGTH_PERC = 60;
+const HOUR_HAND_LENGTH = CIRCLE_RADIUS * HOUR_HAND_LENGTH_PERC / 100;
+const HOUR_HAND_WIDTH = 2;
+const HOUR_HAND_COLOR = 'blue';
+const MIN_HAND_LENGTH_PERC = 80;
+const MIN_HAND_LENGTH = CIRCLE_RADIUS * MIN_HAND_LENGTH_PERC / 100;
+const MIN_HAND_WIDTH = 2;
+const MIN_HAND_COLOR = 'red';
+const SEC_HAND_LENGTH_PERC = 80;
+const SEC_HAND_LENGTH = CIRCLE_RADIUS * SEC_HAND_LENGTH_PERC / 100;
+const SEC_HAND_WIDTH = 2;
+const SEC_HAND_COLOR = 'green';
 
 let hour = new Date().getHours();
 let min = new Date().getMinutes();
@@ -33,9 +33,9 @@ let sec = new Date().getSeconds();
 document.addEventListener('DOMContentLoaded', function() {
 	let canvas = document.createElement('canvas');
 	canvas.id = 'clockJS-canvas';
-	canvas.width = canvasSize;
-	canvas.height = canvasSize;
-	canvas.style.border = canvasBorder;
+	canvas.width = CANVAS_SIZE;
+	canvas.height = CANVAS_SIZE;
+	canvas.style.border = CANVAS_BORDER;
 
 	document.body.appendChild(canvas);
 	
@@ -61,49 +61,49 @@ class Hand {
 		context.beginPath();
 		context.strokeStyle = this.color;
 		context.lineWidth = this.width;
-		context.moveTo(circleCenterX, circleCenterY);
-		context.lineTo(circleCenterX + handXLength, circleCenterY - handYLength);
+		context.moveTo(CIRCLE_CENTER_X, CIRCLE_CENTER_Y);
+		context.lineTo(CIRCLE_CENTER_X + handXLength, CIRCLE_CENTER_Y - handYLength);
 		context.stroke();
 	}
 }
 
 function drawCircle(context) {
 	context.beginPath();
-	context.strokeStyle = circleBorderColor;
-	context.lineWidth = circleBorderWidth;
+	context.strokeStyle = CIRCLE_BORDER_COLOR;
+	context.lineWidth = CIRCLE_BORDER_WIDTH;
 	// arc(x, y, radius, startAngle, endAngle, anticlockwise)
-	context.arc(circleCenterX, circleCenterY, circleRadius, 0, 2 * Math.PI);
+	context.arc(CIRCLE_CENTER_X, CIRCLE_CENTER_Y, CIRCLE_RADIUS, 0, 2 * Math.PI);
 	context.stroke();
 }
 
 function drawDots(context) {
 	let dotCenterX = 0;
 	let dotCenterY = 0;
-	context.fillStyle = dotColor;
+	context.fillStyle = DOT_COLOR;
 	for (let angle = 0; angle < 360; angle += 6) {
 		context.beginPath();
-		dotCenterX = circleCenterX + (circleRadius * dotDistancePercent / 100 * Math.sin(Math.PI * angle / 180));
-		dotCenterY = circleCenterY - (circleRadius * dotDistancePercent / 100 * Math.cos(Math.PI * angle / 180));
+		dotCenterX = CIRCLE_CENTER_X + (CIRCLE_RADIUS * DOT_DISTANCE_PERC / 100 * Math.sin(Math.PI * angle / 180));
+		dotCenterY = CIRCLE_CENTER_Y - (CIRCLE_RADIUS * DOT_DISTANCE_PERC / 100 * Math.cos(Math.PI * angle / 180));
 		// context.fillRect(x, y, width, height);
-		context.fillRect(dotCenterX, dotCenterY, (angle % 15 == 0) ? dotSize * 3: dotSize, (angle % 15 == 0) ? dotSize * 3: dotSize);
+		context.fillRect(dotCenterX, dotCenterY, (angle % 15 == 0) ? DOT_SIZE * 3: DOT_SIZE, (angle % 15 == 0) ? DOT_SIZE * 3: DOT_SIZE);
 		context.stroke();
 	}
 }
 
 function redraw(context) {
-	secHand = new Hand(secHandLength, secHandWidth, secHandColor);
+	secHand = new Hand(SEC_HAND_LENGTH, SEC_HAND_WIDTH, SEC_HAND_COLOR);
 	sec = new Date().getSeconds();
 	secAngle = sec * 6; // sec * 100 / 60 * 360 / 100;
 	
-	minHand = new Hand(minHandLength, minHandWidth, minHandColor);
+	minHand = new Hand(MIN_HAND_LENGTH, MIN_HAND_WIDTH, MIN_HAND_COLOR);
 	min = new Date().getMinutes();
 	minAngle = (min * 60 + sec) / 10; // ((min * 60 + sec) * 100 / 3600) * 360 / 100;
 	
-	hourHand = new Hand(hourHandLength, hourHandWidth, hourHandColor);
+	hourHand = new Hand(HOUR_HAND_LENGTH, HOUR_HAND_WIDTH, HOUR_HAND_COLOR);
 	hour = new Date().getHours();
 	hourAngle = ((hour % 12) * 60 + min) * 0.5; // ((hour % 12) * 60 + min) * 100 / 720) * 360 / 100;
 	
-	context.clearRect(0, 0, canvasSize, canvasSize); // clear canvas
+	context.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE); // clear canvas
 	
 	drawCircle(context);
 	drawDots(context);
